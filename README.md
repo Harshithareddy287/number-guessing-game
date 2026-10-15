@@ -11,7 +11,6 @@ A terminal-based Python game where you try to guess a randomly generated number.
 - [Test Plan](#test-plan)
 - [Git Workflow](#git-workflow)
 - [Configuration](#configuration)
-- [Project Notes](#project-notes)
 
 ## Features
 
@@ -109,6 +108,3 @@ TIME_LIMIT = 60
 
 Set `DEBUG_SECRET = 42` to use a predictable secret number during testing.
 
-## Project Notes
-
-This project demonstrates Python fundamentals, including variables, conditionals, loops, input validation, random number generation, and time-based game logic. It also uses a Git workflow with feature branches, commits, pull requests, and manual testing.
