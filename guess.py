@@ -69,13 +69,30 @@ else:
 
 attempts = 0
 won = False
+timed_out = False
+
+# Record when the round starts
+start_time = time.time()
 
 print("Guess number between", low, "and", high)
 print("You have", max_attempts, "attempts.")
 
 # ---------- Guess loop ----------
 # Goal: keep asking for guesses until player wins, check if runs out of attempts
+
 while attempts < max_attempts:
+   
+    # Show remaining time before each guess in Time Challenge
+    if mode == "2":
+        elapsed_time = time.time() - start_time
+        remaining_time = TIME_LIMIT - elapsed_time
+
+        if remaining_time <= 0:
+            timed_out = True
+            break
+
+        print("Time remaining:", round(remaining_time), "seconds")
+
     guess_input = input("Enter your guess : ").strip()
 
     # Checking whether input is a valid whole number
@@ -111,8 +128,13 @@ while attempts < max_attempts:
 # showing result that matches how round ended.
 
 if won:
-    print("Correct! You guessed the secret number!")
+    print("Correct! You guessed the secret number!!!")
     print("Total attempts taken:", attempts)
+
+elif timed_out:
+    print("Time is up! You lost!")
+    print("The secret number was:", secret_number)
+
 else:
     print("Too many attempts, you lost!!!")
     print("The secret number was:", secret_number)
