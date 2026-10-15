@@ -1,4 +1,3 @@
-
 import random
 import time
 
@@ -16,7 +15,7 @@ low = 1
 high = 100
 
 
-# ---------- Choose a mode ----------git 
+# ---------- Choose a mode ----------
 # Goal: keep asking until the player picks Classic or Time Challenge.
 # Feature 3: Mode selection will be added later.
 
@@ -47,7 +46,10 @@ while True:
 
     guess = int(guess_input)
 
-    
+    # Check whether the number is within the allowed range
+    if guess < low or guess > high:
+        print("Invalid input. Enter a number between", low, "and", high)
+        continue
 
     # Count only valid guesses
     attempts += 1
@@ -66,4 +68,3 @@ while True:
 
 print("Correct! You guessed the secret number!")
 print("Total attempts:", attempts)
-
