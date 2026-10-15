@@ -42,11 +42,25 @@ while True:
 
 # ---------- Choose a mode ----------
 # Goal: keep asking until player picks {Classic or Time Challenge}.
-# Feature 3 added later steps.
+while True:
+    print("\nChoose a game mode:")
+    print("1. Classic Mode")
+    print("2. Time Challenge Mode")
+
+    mode = input("Enter your choice (1-2): ").strip()
+
+    if mode == "1":
+        print("You selected Classic Mode")
+        break
+    elif mode == "2":
+        print("You selected Time Challenge Mode")
+        break
+    else:
+        print("Invalid choice. Please select 1 or 2.")
 
 
 # ---------- Set up the round ----------
-# Goal: pick the secret number (use DEBUG_SECRET when it is not None) and start the clock.
+# Goal: pick secret number (use DEBUG_SECRET when it is not None)
 
 if DEBUG_SECRET is not None:
     secret_number = DEBUG_SECRET
@@ -60,7 +74,7 @@ print("Guess number between", low, "and", high)
 print("You have", max_attempts, "attempts.")
 
 # ---------- Guess loop ----------
-# Goal: keep asking for guesses until the player wins, check if runs out of attempts
+# Goal: keep asking for guesses until player wins, check if runs out of attempts
 while attempts < max_attempts:
     guess_input = input("Enter your guess : ").strip()
 
