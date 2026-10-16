@@ -65,27 +65,32 @@ Invalid input and guesses outside the selected range do not use an attempt.
 
 ## Test Plan
 
-The game was manually tested in the terminal in both modes. For predictable results, the secret number was temporarily set to `42`.
+The game was manually tested in the terminal using `DEBUG_SECRET = 42` to verify the expected results.
 
-| # | Test | Expected result | Outcome |
-|--:|:-----|:----------------|:--------|
-| 1 | Guess below the secret (`32`) | Show “Too low!” and use one attempt | Passed |
-| 2 | Guess above the secret (`45`) | Show “Too high!” and use one attempt | Passed |
-| 3 | Guess correctly after five incorrect valid guesses | Show success and report 6 total attempts | Passed |
-| 4 | Enter letters (`fghj`) | Reject input without using an attempt | Passed |
-| 5 | Submit blank input | Reject input without using an attempt | Passed |
-| 6 | Enter a number below the range (`0` in Easy) | Reject input without using an attempt | Passed |
-| 7 | Enter a number above the range (`90` in Easy) | Reject input without using an attempt | Passed |
-| 8 | Select Easy | Set range to 1–50 and allow 10 attempts | Passed |
-| 9 | Select Medium | Set range to 1–100 and allow 8 attempts | Passed |
-| 10 | Select Hard in Time Challenge | Set range to 1–500 and allow 10 attempts | Passed |
-| 11 | Use all attempts in Medium Time Challenge | End after 8 valid guesses and reveal the secret | Passed |
-| 12 | Guess after the Time Challenge expires | End the game and reveal the secret | Passed |
-| 13 | Make multiple guesses in Time Challenge | Display the decreasing remaining time | Passed |
-| 14 | Enter a decimal (`5.00`) | Reject input without using an attempt | Passed |
-| 15 | Select Classic Mode | Play without a countdown | Passed |
+| # | What I tested | What I did | Expected result | Actual result | Pass? |
+|---|---|---|---|---|---|
+| 1 | Guess below the secret | Guessed 32 with secret 42 | Display "Too low!" | Displayed "Too low!" | Yes |
+| 2 | Guess above the secret | Guessed 45 with secret 42 | Display "Too high!" | Displayed "Too high!" | Yes |
+| 3 | Correct guess | Guessed 42 after five valid incorrect guesses | Display success and 6 total attempts | Displayed success and total attempts of 6 | Yes |
+| 4 | Letters as input | Entered `fghj` | Reject input without using an attempt | Invalid input message; attempts unchanged | Yes |
+| 5 | Blank input | Pressed Enter without entering a number | Reject input without using an attempt | Invalid input message; attempts unchanged | Yes |
+| 6 | Below-range number | Entered 0 in Easy Mode | Reject number outside range | Range error; attempts unchanged | Yes |
+| 7 | Above-range number | Entered 90 in Easy Mode | Reject number outside range | Range error; attempts unchanged | Yes |
+| 8 | Decimal input | Entered `5.00` | Reject invalid input | Invalid input message; attempts unchanged | Yes |
+| 9 | Easy difficulty | Selected Easy and Classic Mode | Range 1–50, 10 attempts | Displayed range 1–50 and 10 attempts | Yes |
+| 10 | Medium difficulty | Selected Medium and Time Challenge | Range 1–100, 8 attempts | Displayed range 1–100 and 8 attempts | Yes |
+| 11 | Hard difficulty | Selected Hard and Time Challenge | Range 1–500, 10 attempts | Displayed range 1–500 and 10 attempts | Yes |
+| 12 | Medium attempt limit | Entered 8 incorrect guesses | End game and reveal secret | Displayed loss message and revealed 42 | Yes |
+| 13 | Hard attempt limit | Entered 10 incorrect guesses | End game and reveal secret | Displayed loss message and revealed 42 | Yes |
+| 14 | Countdown | Played Medium Time Challenge | Display remaining time before guesses | Countdown decreased from 60 seconds | Yes |
+| 15 | Timeout | Entered 42 after the time limit | Reject late guess and reveal secret | Displayed "Time is up!" and revealed 42 | Yes |
+| 16 | Classic Mode | Selected Easy and Classic Mode | Run without a countdown | Game ran without a timer | Yes |
 
-**Test summary:** All 15 documented test cases passed. Testing covered input validation, attempt counting, difficulty settings, countdown behavior, winning, timeout handling, and revealing the secret number.
+### Test Summary
+
+All 16 documented manual test cases passed. The tests covered input validation, difficulty levels, attempt counting, countdown behavior, timeout handling, and successful guesses.
+
+During testing, `DEBUG_SECRET` was set to `42`. For normal gameplay, it should be set to `None`.
 
 ## Git Workflow
 
